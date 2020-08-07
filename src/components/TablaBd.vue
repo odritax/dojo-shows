@@ -24,7 +24,7 @@
           <td>{{ show.canal }}</td>
           <td>{{ show.temporadas }}</td>
           <td>{{show.vigencia=='true'?'Sí':'No'}}</td>
-          <td><span v-for="(genero, i) in show.generos" :key="i">{{ genero }}</span></td>
+          <td><span v-for="(genero, i) in show.generos" :key="i">{{ genero }} &nbsp;&nbsp;</span></td>
           <td><router-link :to="{path:'/editar/' + show.id}">Editar</router-link><a href="#" v-on:click="eliminar(show.id)" > Eliminar</a></td>
         </tr>
       </tbody>
@@ -32,14 +32,14 @@
       </div>
       <div class="col-md-3">
         <h2>Agregar un Show</h2>
-        <form action="">
-        <label for="">Título</label><input type="text" class="form-control" name="" id="" v-model="titulo">
-        <label for="">Canal</label> <input type="text" class="form-control" name="" id="" v-model="canal">
-        <label for="">N° Temporadas</label><input type="number" class="form-control" name="" id="" v-model="temporadas"><br>
-        <label for="">Vigencia </label>&nbsp;&nbsp;&nbsp;Sí&nbsp;&nbsp;&nbsp;<input type="radio" name="vigencia" value="true" v-model="vigencia" id="">
-        No <input type="radio" name="vigencia" value="false" v-model="vigencia" id=""><br>
-        <label for="">Géneros</label><input type="text" class="form-control" v-model="generos" name="" id=""><br>
-        <button class="btn btn-dark" v-on:click="agregar">Agregar</button>
+        <form @submit.prevent="agregar">
+        <label for="">Título</label><input required="required" type="text" class="form-control" name="" id="" v-model="titulo">
+        <label for="">Canal</label> <input required="required" type="text" class="form-control" name="" id="" v-model="canal">
+        <label for="">N° Temporadas</label><input required="required" type="number" class="form-control" name="" id="" v-model="temporadas"><br>
+        <label for="">Vigencia </label>&nbsp;&nbsp;&nbsp;Sí&nbsp;&nbsp;&nbsp;<input required="required" type="radio" name="vigencia" value="true" v-model="vigencia" id="">
+        No <input required="required" type="radio" name="vigencia" value="false" v-model="vigencia" id=""><br>
+        <label for="">Géneros</label><input required="required" type="text" class="form-control" v-model="generos" name="" id=""><br>
+        <button class="btn btn-dark">Agregar</button>
         </form>
       </div>
   </div>
@@ -66,9 +66,8 @@ export default {
     }
   },
     methods: {
-    agregar(ev) {
+    agregar() {
       // add item to db
-      ev.preventDefault();
       db.collection("shows").add({
         titulo: this.titulo,
         canal: this.canal,
