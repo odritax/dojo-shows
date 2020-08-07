@@ -1,15 +1,11 @@
 <template>
   <div id="app">
-    <TablaBd/>
+   <router-view/>
   </div>
 </template>
 <script>
-import TablaBd from './components/TablaBd.vue'
-
 export default {
   name: 'App',
-  components: {
-    TablaBd
-  }
 }
 </script>
+
